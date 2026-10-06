@@ -1,0 +1,15 @@
+{
+  "name": "root",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@12.8.1",
+  "license": "MIT",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.8.1",
+      "onFail": "download"
+    }
+  },
+  "scripts": {}
+}
