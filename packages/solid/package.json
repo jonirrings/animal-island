@@ -1,5 +1,48 @@
 {
   "name": "@animal-island/solid",
   "version": "1.0.0",
-  "private": true
+  "private": true,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "solid": "./dist/index.jsx",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "solid": "./dist/*/index.jsx",
+      "default": "./dist/*/index.js"
+    },
+    "./src/*": "./src/*"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*/index.d.ts",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "source": "src/index.tsx",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "catalog:",
+    "vite-plugin-solid": "^2.11.14"
+  },
+  "peerDependencies": {
+    "clsx": "^2.1.1",
+    "solid-js": "^1.9.8"
+  }
 }

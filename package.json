@@ -1,9 +1,15 @@
 {
   "name": "root",
-  "type": "module",
   "private": true,
-  "packageManager": "pnpm@12.8.1",
   "license": "MIT",
+  "type": "module",
+  "scripts": {},
+  "devDependencies": {
+    "@typescript/lib-dom": "npm:modern-web-types",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
+  },
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
@@ -11,5 +17,5 @@
       "onFail": "download"
     }
   },
-  "scripts": {}
+  "packageManager": "pnpm@12.8.1"
 }
