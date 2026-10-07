@@ -1,0 +1,16 @@
+{
+  "name": "@animal-island/vue-icons",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "build": "build-icons --targets=vue"
+  },
+  "devDependencies": {
+    "@animal-island/build-icons": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": ">=3.3"
+  }
+}

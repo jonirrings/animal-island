@@ -1,0 +1,17 @@
+{
+  "name": "@animal-island/solid-icons",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "build": "build-icons --targets=solid"
+  },
+  "devDependencies": {
+    "@animal-island/build-icons": "workspace:*"
+  },
+  "peerDependencies": {
+    "@solidjs/web": ">=2.0.0-rc.0",
+    "solid-js": ">=2.0.0-rc.0"
+  }
+}

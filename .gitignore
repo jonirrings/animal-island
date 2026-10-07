@@ -3,6 +3,10 @@ build
 dist
 gitignore
 
+# generated icon components（源文件在 icons/*.svg，生成物不入库）
+packages/icons/*/src/icons/*.ts
+packages/icons/*/src/icons/*.svelte
+
 # debug
 logs
 *.log
@@ -39,3 +43,4 @@ lerna-debug.log
 Thumbs.db
 .vercel
 /storybook-static
+.vitest/

@@ -1,0 +1,16 @@
+{
+  "name": "@animal-island/svelte-icons",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "build": "build-icons --targets=svelte"
+  },
+  "devDependencies": {
+    "@animal-island/build-icons": "workspace:*"
+  },
+  "peerDependencies": {
+    "svelte": ">=5"
+  }
+}

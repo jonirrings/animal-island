@@ -1,0 +1,17 @@
+{
+  "name": "@animal-island/build-icons",
+  "version": "0.0.0",
+  "private": true,
+  "description": "把 icons/*.svg 生成 React / Vue 3 / Solid 2 / Svelte 5 图标组件。",
+  "type": "module",
+  "bin": {
+    "build-icons": "./src/cli.mjs"
+  },
+  "scripts": {
+    "build": "node ./src/cli.mjs",
+    "check": "node ./src/cli.mjs --check"
+  },
+  "engines": {
+    "node": ">=26.0.0"
+  }
+}

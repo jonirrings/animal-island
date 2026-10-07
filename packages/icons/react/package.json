@@ -1,0 +1,16 @@
+{
+  "name": "@animal-island/react-icons",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "build": "build-icons --targets=react"
+  },
+  "devDependencies": {
+    "@animal-island/build-icons": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}

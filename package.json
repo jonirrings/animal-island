@@ -1,15 +1,24 @@
 {
   "name": "root",
-  "type": "module",
   "private": true,
-  "packageManager": "pnpm@12.8.1",
   "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build:icons": "pnpm -r --filter \"./packages/icons/*\" run build",
+    "check:icons": "pnpm --filter @animal-island/build-icons run check"
+  },
+  "devDependencies": {
+    "@typescript/lib-dom": "npm:modern-web-types",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
+  },
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "12.8.1",
+      "version": "12.23.0",
       "onFail": "download"
     }
   },
-  "scripts": {}
+  "packageManager": "pnpm@12.23.0"
 }
