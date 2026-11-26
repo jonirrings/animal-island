@@ -1,0 +1,7 @@
+# Astro 构建产物与缓存
+dist/
+.astro/
+node_modules/
+
+# 由 scripts/build-data.mjs 生成，构建时重建
+src/data/icons.json

@@ -1,0 +1,20 @@
+<div class="solid-placeholder">
+  <div class="solid-placeholder__badge">Coming soon</div>
+  <h3 class="solid-placeholder__title">Solid 运行时暂未挂载</h3>
+  <p class="solid-placeholder__text">
+    <code>@astrojs/solid-js</code> 的已发布版本（7.1.6）仍以
+    <code>solid-js&nbsp;^1.9.13</code> 为 peer 依赖，而 Animal Island 的 Solid 图标包面向
+    Solid 2。<code>withastro/astro</code> 的 main 分支已把 peer 改为
+    <code>solid-js&nbsp;^2.0.0</code>，但尚未发布。
+  </p>
+  <p class="solid-placeholder__text">
+    在此之前，Solid 图标包本身是可用的 —— 它已通过
+    <code>@solidjs/vite-plugin</code> 编译并完成 SSR 渲染校验，只是本站无法在 Astro
+    中挂载 Solid 运行时。
+  </p>
+  <ul class="solid-placeholder__list">
+    <li>包已发布：<code>@animal-island/solid-icons</code></li>
+    <li>已用真实的 Solid 2 工具链验证渲染输出与源 SVG 逐字节一致</li>
+    <li>待 <code>@astrojs/solid-js</code> 支持 Solid 2 后，此处会替换为真实挂载</li>
+  </ul>
+</div>

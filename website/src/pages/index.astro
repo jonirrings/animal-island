@@ -1,0 +1,305 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReactIcons from '../components/ReactIcons.jsx';
+import VueIcons from '../components/VueIcons.js';
+import SvelteIcons from '../components/SvelteIcons.svelte';
+import SolidPlaceholder from '../components/SolidPlaceholder.astro';
+import data from '../data/icons.json';
+
+const { total, categories, icons } = data;
+
+// 运行时验证只用一小批有代表性的图标：覆盖多色填充、stroke="none"、
+// 以及 g 嵌套（map-pin / snowflake / crayon）这几种结构。
+const SAMPLE_IDS = [
+  'bear',
+  'map-pin',
+  'snowflake',
+  'crayon',
+  'link',
+  'abacus',
+  'ai-agent',
+  'cli',
+  'cake',
+  'cat',
+  'coffee',
+  'star',
+];
+const sampleNames = SAMPLE_IDS.map((id) => icons.find((icon) => icon.id === id)?.comp).filter(Boolean);
+
+const categoryLabel = (icon) => {
+  const cat = categories.find((c) => c.id === icon.cat);
+  return cat ? cat.titleZh : icon.cat;
+};
+
+const PACKAGES = [
+  { fw: 'react', pkg: '@animal-island/react-icons', meta: 'React 18+' },
+  { fw: 'vue', pkg: '@animal-island/vue-icons', meta: 'Vue 3.3+' },
+  { fw: 'svelte', pkg: '@animal-island/svelte-icons', meta: 'Svelte 5' },
+  { fw: 'solid', pkg: '@animal-island/solid-icons', meta: 'Solid 2' },
+];
+---
+
+<BaseLayout>
+  <!-- ============================================================ Hero -->
+  <section class="hero">
+    <div class="shell hero__inner">
+      <div>
+        <p class="eyebrow" data-i18n="hero.eyebrow">936 枚图标 · 20 个分类 · 4 个框架</p>
+        <h1 class="hero__title" data-i18n="hero.title">来自岛屿的手绘图标</h1>
+        <p class="hero__lead" data-i18n="hero.lead">
+          同一份 SVG，四套原生组件。
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--solid" href="#icons" data-i18n="hero.cta.browse">浏览图标</a>
+          <a class="btn btn--line" href="#runtime" data-i18n="hero.cta.runtime">查看运行时</a>
+        </div>
+        <div class="cmd-row">
+          <div class="cmd">
+            <span class="cmd__tag">npm</span>
+            <code>npm i @animal-island/react-icons</code>
+          </div>
+        </div>
+      </div>
+      <div class="hero__stage" aria-hidden="true">
+        <div class="sticker">
+          <svg viewBox="0 0 48 48" width="88" height="88">
+            <circle cx="12" cy="14" r="5" fill="#8B5E3C" />
+            <circle cx="36" cy="14" r="5" fill="#8B5E3C" />
+            <circle cx="12" cy="14" r="2" fill="#F4A6A4" stroke="none" />
+            <circle cx="36" cy="14" r="2" fill="#F4A6A4" stroke="none" />
+            <circle cx="24" cy="27" r="15" fill="#8B5E3C" />
+            <circle cx="18" cy="24" r="2.5" fill="#FFFFFF" stroke="none" />
+            <circle cx="30" cy="24" r="2.5" fill="#FFFFFF" stroke="none" />
+            <circle cx="18" cy="25" r="1.3" fill="#2A2A2A" stroke="none" />
+            <circle cx="30" cy="25" r="1.3" fill="#2A2A2A" stroke="none" />
+            <ellipse cx="24" cy="32" rx="6" ry="4.5" fill="#FAEDCD" />
+            <ellipse cx="24" cy="30.5" rx="2.5" ry="1.8" fill="#2A2A2A" />
+            <path
+              d="M24 32.3 L24 34 M24 34 Q 21 36 19.5 34.5 M24 34 Q 27 36 28.5 34.5"
+              stroke="#2A2A2A"
+              fill="none"
+              stroke-width="1.8"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= 安装 -->
+  <section class="sec sec--soft" id="install">
+    <div class="shell">
+      <header class="sec__head">
+        <h2 class="sec__title" data-i18n="install.title">安装</h2>
+      </header>
+      <div class="stats">
+        {PACKAGES.map(({ fw, pkg, meta }) => (
+          <div class="pill">
+            <strong>{fw}</strong>
+            <code>{pkg}</code>
+            <span class="runtime-status">{meta}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================== Explorer -->
+  <section class="sec" id="icons">
+    <div class="shell">
+      <header class="sec__head">
+        <h2 class="sec__title" data-i18n="explorer.title">浏览图标</h2>
+        <p class="sec__lead" data-i18n="explorer.lead">
+          按名称或中文名搜索，按分类筛选。
+        </p>
+      </header>
+
+      <div class="explorer">
+        <div class="explorer__bar">
+          <div class="explorer__tools">
+            <div class="search">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" />
+              </svg>
+              <input id="iconSearch" type="search" placeholder="搜索图标名称或中文名…" />
+              <button class="search__clear" id="searchClear" type="button" aria-label="清除">×</button>
+            </div>
+            <div class="tools__group">
+              <label class="tool size-control">
+                <span data-i18n="explorer.size">尺寸</span>
+                <input id="sizeInput" type="range" min="28" max="96" value="55" />
+                <output id="sizeOut">55</output>
+              </label>
+            </div>
+          </div>
+          <p class="explorer__status" id="exploreStatus" data-total={total}>共 {total} 枚</p>
+        </div>
+
+        <div class="chips">
+          <button class="chip is-active" data-cat-id="all" type="button">
+            <span data-i18n="explorer.all">全部</span>
+            <span class="chip__count">{total}</span>
+          </button>
+          {categories.map((cat) => (
+            <button
+              class="chip"
+              data-cat-id={cat.id}
+              data-cat-title={cat.title}
+              data-cat-zh={cat.titleZh}
+              type="button"
+            >
+              <span data-cat-label>{cat.titleZh}</span>
+              <span class="chip__count">{icons.filter((icon) => icon.cat === cat.id).length}</span>
+            </button>
+          ))}
+        </div>
+
+        <div class="grid" id="iconGrid">
+          {icons.map((icon) => (
+            <div
+              class="cell"
+              role="button"
+              tabindex="0"
+              data-id={icon.id}
+              data-zh={icon.zh}
+              data-comp={icon.comp}
+              data-cat={icon.cat}
+              data-cat-label={categoryLabel(icon)}
+            >
+              <span class="cell__icon" set:html={icon.svg} />
+              <span class="cell__name">{icon.id}</span>
+              <span class="cell__zh">{icon.zh}</span>
+            </div>
+          ))}
+        </div>
+        <p class="empty" id="exploreEmpty" hidden data-i18n="explorer.empty">没有匹配的图标</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================== Runtime -->
+  <section class="sec sec--soft" id="runtime">
+    <div class="shell">
+      <header class="sec__head">
+        <h2 class="sec__title" data-i18n="runtime.title">运行时验证</h2>
+        <p class="sec__lead" data-i18n="runtime.lead">
+          在同一个 Astro 页面里真实挂载各框架的图标组件。
+        </p>
+      </header>
+
+      <div class="framebar">
+        <span class="framebar__label">Runtime</span>
+        <div class="segmented" role="tablist">
+          <button data-runtime-btn="react" role="tab" aria-selected="true" type="button">
+            <span data-i18n="runtime.react">React</span><span class="tab-dot"></span>
+          </button>
+          <button data-runtime-btn="vue" role="tab" aria-selected="false" type="button">
+            <span data-i18n="runtime.vue">Vue</span><span class="tab-dot"></span>
+          </button>
+          <button data-runtime-btn="svelte" role="tab" aria-selected="false" type="button">
+            <span data-i18n="runtime.svelte">Svelte</span><span class="tab-dot"></span>
+          </button>
+          <button data-runtime-btn="solid" role="tab" aria-selected="false" type="button">
+            <span data-i18n="runtime.solid">Solid</span><span class="tab-dot tab-dot--pending"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="runtime-panel" data-runtime-panel="react">
+        <div class="runtime-head">
+          <strong>React 19</strong>
+          <span class="runtime-status" id="statusReact" data-state="ok" data-i18n="runtime.pending">等待挂载…</span>
+        </div>
+        <ReactIcons client:idle names={sampleNames} size={56} />
+      </div>
+
+      <div class="runtime-panel" data-runtime-panel="vue" hidden>
+        <div class="runtime-head">
+          <strong>Vue 3</strong>
+          <span class="runtime-status" id="statusVue" data-state="ok" data-i18n="runtime.pending">等待挂载…</span>
+        </div>
+        <VueIcons client:idle names={sampleNames} size={56} />
+      </div>
+
+      <div class="runtime-panel" data-runtime-panel="svelte" hidden>
+        <div class="runtime-head">
+          <strong>Svelte 5</strong>
+          <span class="runtime-status" id="statusSvelte" data-state="ok" data-i18n="runtime.pending">等待挂载…</span>
+        </div>
+        <SvelteIcons client:idle names={sampleNames} size={56} />
+      </div>
+
+      <div class="runtime-panel" data-runtime-panel="solid" hidden>
+        <div class="runtime-head">
+          <strong>Solid 2</strong>
+          <span class="runtime-status" data-state="warn">占位</span>
+        </div>
+        <SolidPlaceholder />
+      </div>
+
+      <p class="runtime-note" data-i18n="runtime.note">
+        每个标签页只挂载下方展示的这批图标，而非全部 936 枚。
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================================================== Modal -->
+  <div class="modal" id="iconModal" hidden>
+    <div class="modal__backdrop" id="modalBackdrop"></div>
+    <div class="modal__box" role="dialog" aria-modal="true">
+      <button class="modal__close" id="modalClose" type="button" aria-label="关闭">×</button>
+      <div class="modal__body">
+        <div class="modal__preview" id="modalPreview"></div>
+        <div>
+          <h3 class="modal__title" id="modalTitle"></h3>
+          <p class="modal__sub" id="modalSub"></p>
+          <div class="codepane">
+            <div class="codepane__bar">
+              <div class="codetabs" role="tablist">
+                <button data-code-tab="react" aria-selected="true" type="button">React</button>
+                <button data-code-tab="vue" aria-selected="false" type="button">Vue</button>
+                <button data-code-tab="svelte" aria-selected="false" type="button">Svelte</button>
+                <button data-code-tab="solid" aria-selected="false" type="button">Solid</button>
+                <button data-code-tab="deep" aria-selected="false" type="button">Single</button>
+              </div>
+              <button class="copy" id="modalCopy" type="button">复制</button>
+            </div>
+            <pre class="modal__code"><code id="modalCode"></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 把 React/Vue/Svelte 组件的挂载耗时回填到状态行
+    const fill = (hostSelector, statusId) => {
+      const host = document.querySelector(`${hostSelector} .rt-grid`);
+      const status = document.getElementById(statusId);
+      if (!host || !status) return;
+      const check = () => {
+        if (host.dataset.mountMs) {
+          status.textContent = host.dataset.status || `已挂载 ${host.dataset.rendered} 枚 · ${host.dataset.mountMs}ms`;
+          status.dataset.state = 'ok';
+          // 告诉 site.js 的语言切换：这行已经被实际数据接管，不要重置
+          status.dataset.stateFilled = '1';
+          return true;
+        }
+        return false;
+      };
+      if (check()) return;
+      const observer = new MutationObserver(() => {
+        if (check()) observer.disconnect();
+      });
+      observer.observe(host, { attributes: true });
+    };
+
+    const boot = () => {
+      fill('[data-runtime-panel="react"]', 'statusReact');
+      fill('[data-runtime-panel="vue"]', 'statusVue');
+      fill('[data-runtime-panel="svelte"]', 'statusSvelte');
+    };
+    if (document.readyState === 'complete') boot();
+    else window.addEventListener('load', boot);
+  </script>
+</BaseLayout>
