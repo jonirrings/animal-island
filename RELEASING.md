@@ -25,6 +25,35 @@
 说明符，所以构建末尾跑 `fix-esm-extensions` 补 `.js` / `.jsx` / `.svelte`。这一步
 是必须的，删掉会导致 `ERR_MODULE_NOT_FOUND`。
 
+## tsconfig 分层
+
+每个包两份配置，职责分开：
+
+| 文件 | 用途 | 特点 |
+| --- | --- | --- |
+| `tsconfig.json` | IDE / 编辑器 | `noEmit`，供 VSCode、WebStorm 等自动发现 |
+| `tsconfig.build.json` | 构建与 typecheck | extends 前者，只管 emit |
+
+两者都 extends 仓库共享的 `packages/tsconfig.json`，所以 `strict`、
+`verbatimModuleSyntax`、`noUnusedLocals` 等规则只有一份。`build` 只覆盖
+emit 相关的选项。
+
+`target` / `lib` 刻意在 `tsconfig.build.json` 里重复声明为 `ES2020`，不继承开发
+配置的 `ESNext`。这是发布产物的兼容性承诺，不应随开发配置漂移。
+
+三个覆盖点，都来自实际报错：
+
+- `allowImportingTsExtensions: false` —— 基础配置开了它，但它只在 `noEmit`
+  时合法，直接 emit 会报 TS5096
+- `rootDir: "src"` —— 不给会让产物落到 `dist/src/`（TS5011）
+- `types: []` —— 基础配置带 `types: ["vitest/globals"]`，图标包没有测试，
+  不该依赖 vitest。`svelte` 包例外，用 `types: ["svelte"]`，因为要注入
+  svelte 的全局声明供 IDE 解析 `.svelte` 文件
+
+`packages/icons/vue/src/createIcon.ts` 里有一处 `slots['default']` 而非
+`slots.default` —— 基础配置开了 `noPropertyAccessFromIndexSignature`，
+Vue 的 `Slots` 带索引签名，点号访问会被判为错误。
+
 ## 发布前检查
 
 ```sh

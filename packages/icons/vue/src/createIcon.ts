@@ -22,7 +22,7 @@ const renderNodes = (nodes: IconNode[]): VNode[] =>
 export function createIcon(icon: IconData): FunctionalComponent<IconProps> {
   const Icon: FunctionalComponent<IconProps> = (props, { slots }) => {
     const { size = 24, class: className, ...rest } = props;
-    const slotNodes = slots.default?.() ?? [];
+    const slotNodes = slots['default']?.() ?? [];
     const hasA11y =
       slotNodes.length > 0 || hasA11yProp(rest as unknown as Record<string, unknown>);
 
