@@ -10,6 +10,12 @@ packages/icons/*/src/icons/*.svelte
 # python 脚本生成的字节码（tools/build-icons/scripts/*.py）
 __pycache__/
 
+# svelte-package 的构建中间产物
+.svelte-kit/
+
+# 本地试打包产物（pnpm pack:icons）
+.packs/
+
 # debug
 logs
 *.log

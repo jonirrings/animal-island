@@ -1,14 +1,62 @@
 {
   "name": "@animal-island/svelte-icons",
   "version": "1.0.0",
-  "private": true,
+  "description": "Animal Island icons for Svelte 5 — 936 hand-drawn 48×48 folk-art SVGs as tree-shakable components.",
+  "license": "MIT",
   "type": "module",
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./icons": {
+      "types": "./dist/icons/index.d.ts",
+      "svelte": "./dist/icons/index.js",
+      "default": "./dist/icons/index.js"
+    },
+    "./icons/*": {
+      "types": "./dist/icons/*.svelte.d.ts",
+      "svelte": "./dist/icons/*.svelte",
+      "default": "./dist/icons/*.svelte"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "icons",
+    "icon",
+    "svg",
+    "svelte",
+    "svelte5",
+    "animal-island",
+    "folk-art",
+    "illustration"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonirrings/animal-island.git",
+    "directory": "packages/icons/svelte"
+  },
+  "homepage": "https://github.com/jonirrings/animal-island#readme",
+  "bugs": {
+    "url": "https://github.com/jonirrings/animal-island/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "build-icons --targets=svelte"
+    "build": "build-icons --targets=svelte && svelte-package --input ./src && fix-esm-extensions dist .js .svelte",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit",
+    "prepack": "pnpm run build"
   },
   "devDependencies": {
-    "@animal-island/build-icons": "workspace:*"
+    "@animal-island/build-icons": "workspace:*",
+    "@sveltejs/package": "^3.0.3",
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
     "svelte": ">=5"

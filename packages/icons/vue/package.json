@@ -1,14 +1,58 @@
 {
   "name": "@animal-island/vue-icons",
   "version": "1.0.0",
-  "private": true,
+  "description": "Animal Island icons for Vue 3 — 936 hand-drawn 48×48 folk-art SVGs as tree-shakable components.",
+  "license": "MIT",
   "type": "module",
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./icons": {
+      "types": "./dist/icons/index.d.ts",
+      "default": "./dist/icons/index.js"
+    },
+    "./icons/*": {
+      "types": "./dist/icons/*.d.ts",
+      "default": "./dist/icons/*.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "icons",
+    "icon",
+    "svg",
+    "vue",
+    "vue3",
+    "animal-island",
+    "folk-art",
+    "illustration"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonirrings/animal-island.git",
+    "directory": "packages/icons/vue"
+  },
+  "homepage": "https://github.com/jonirrings/animal-island#readme",
+  "bugs": {
+    "url": "https://github.com/jonirrings/animal-island/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "build-icons --targets=vue"
+    "build": "build-icons --targets=vue && tsc -p tsconfig.build.json && fix-esm-extensions dist .js",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit",
+    "prepack": "pnpm run build"
   },
   "devDependencies": {
-    "@animal-island/build-icons": "workspace:*"
+    "@animal-island/build-icons": "workspace:*",
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
     "vue": ">=3.3"

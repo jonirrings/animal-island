@@ -6,6 +6,10 @@
   "scripts": {
     "build:icons": "pnpm -r --filter \"./packages/icons/*\" run build",
     "check:icons": "pnpm --filter @animal-island/build-icons run check",
+    "check:icons:exports": "node tools/build-icons/scripts/verify-exports.mjs",
+    "typecheck:icons": "pnpm -r --filter \"./packages/icons/*\" run typecheck",
+    "pack:icons": "pnpm -r --filter \"./packages/icons/*\" exec pnpm pack --pack-destination ../../../.packs",
+    "publish:icons": "pnpm -r --filter \"./packages/icons/*\" publish --access public",
     "sync:icons": "python3 tools/build-icons/scripts/sync-icons.py --source ../naive-icons",
     "sync:icons:apply": "python3 tools/build-icons/scripts/sync-icons.py --source ../naive-icons --write",
     "sync:icon-meta": "python3 tools/build-icons/scripts/import-naive-meta.py --source ../naive-icons"
