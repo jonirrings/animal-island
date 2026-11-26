@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { parseSvg } from './parseSvg.mjs';
+import { loadMeta } from './meta.mjs';
 import {
   emitBarrel,
   emitScriptIcon,
@@ -191,6 +192,9 @@ const writeIcons = async (icons, options) => {
 const main = async () => {
   const options = parseArgs(process.argv.slice(2));
   const { icons, problems } = await loadIcons(options.input);
+  // 元数据与图标同目录：--input 指向哪，schema 与 categories/ 就在它的父目录找。
+  const meta = await loadMeta(path.dirname(options.input), options.input);
+  problems.push(...meta.problems);
 
   if (problems.length > 0) {
     console.error(`校验未通过（${problems.length} 项）：`);
@@ -199,7 +203,9 @@ const main = async () => {
     return;
   }
 
-  console.log(`解析并校验通过：${icons.length} 个图标。`);
+  console.log(
+    `解析并校验通过：${icons.length} 个图标、${meta.categories.length} 个分类。`,
+  );
 
   if (options.check) {
     console.log('--check 模式：未写入任何文件。');

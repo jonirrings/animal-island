@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Files & Media",
+  "titleZh": "文件与媒体",
+  "description": "文件类型、音视频、图表与文档。",
+  "icon": "file",
+  "weight": 30
+}

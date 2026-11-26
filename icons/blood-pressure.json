@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "血压计",
+  "categories": [
+    "health"
+  ]
+}

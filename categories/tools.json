@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Tools",
+  "titleZh": "工具",
+  "description": "手工工具、电动工具与量具。",
+  "icon": "hammer",
+  "weight": 140
+}

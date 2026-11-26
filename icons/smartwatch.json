@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "智能手表",
+  "categories": [
+    "devices"
+  ]
+}

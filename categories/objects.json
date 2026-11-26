@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Objects",
+  "titleZh": "日常物品",
+  "description": "日常用品、家居、服饰与杂物。",
+  "icon": "gift",
+  "weight": 100
+}

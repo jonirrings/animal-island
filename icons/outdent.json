@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "减少缩进",
+  "categories": [
+    "action"
+  ]
+}

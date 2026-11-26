@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "看板",
+  "categories": [
+    "interface"
+  ]
+}

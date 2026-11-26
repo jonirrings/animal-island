@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Food & Drink",
+  "titleZh": "食物饮品",
+  "description": "水果、正餐、烘焙与饮品。",
+  "icon": "cake",
+  "weight": 80
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "K 线图",
+  "categories": [
+    "finance"
+  ]
+}

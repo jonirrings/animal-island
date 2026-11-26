@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "锁定文件夹",
+  "categories": [
+    "media"
+  ]
+}

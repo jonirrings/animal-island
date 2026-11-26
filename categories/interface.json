@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Interface",
+  "titleZh": "界面基础",
+  "description": "基础界面控件：按钮、表单、状态与视图切换。",
+  "icon": "settings",
+  "weight": 10
+}

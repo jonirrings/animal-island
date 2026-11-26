@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "摄像头",
+  "categories": [
+    "devices"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "麦克风关闭",
+  "categories": [
+    "media"
+  ]
+}

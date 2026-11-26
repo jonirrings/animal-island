@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "仪表盘布局",
+  "categories": [
+    "interface"
+  ]
+}

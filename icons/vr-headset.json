@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "VR 头显",
+  "categories": [
+    "devices"
+  ]
+}

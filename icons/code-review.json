@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "代码审查",
+  "categories": [
+    "dev"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "行情走势",
+  "categories": [
+    "finance"
+  ]
+}

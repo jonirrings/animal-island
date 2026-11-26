@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "视力表",
+  "categories": [
+    "health"
+  ]
+}

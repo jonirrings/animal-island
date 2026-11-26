@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "医用手套",
+  "categories": [
+    "health"
+  ]
+}

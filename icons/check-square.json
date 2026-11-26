@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "复选框",
+  "categories": [
+    "interface"
+  ]
+}

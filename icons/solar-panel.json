@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "太阳能板",
+  "categories": [
+    "devices"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "竖向拖拽点",
+  "categories": [
+    "interface"
+  ]
+}

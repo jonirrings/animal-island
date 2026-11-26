@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Actions",
+  "titleZh": "操作",
+  "description": "对内容产生动作的图标：增删改、播放、缩放、撤销。",
+  "icon": "check",
+  "weight": 20
+}

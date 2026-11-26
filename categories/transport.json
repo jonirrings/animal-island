@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Transport",
+  "titleZh": "交通工具",
+  "description": "车辆、船舶、航空与交通标识。",
+  "icon": "car",
+  "weight": 170
+}

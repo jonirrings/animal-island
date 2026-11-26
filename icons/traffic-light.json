@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "交通灯",
+  "categories": [
+    "transport"
+  ]
+}

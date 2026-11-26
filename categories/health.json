@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Health & Medical",
+  "titleZh": "健康医疗",
+  "description": "医疗器械、身体部位与健康测量。",
+  "icon": "stethoscope",
+  "weight": 150
+}

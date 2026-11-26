@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "手电筒",
+  "categories": [
+    "tools"
+  ]
+}

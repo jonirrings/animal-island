@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "语音提示",
+  "categories": [
+    "ai"
+  ]
+}

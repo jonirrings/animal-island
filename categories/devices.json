@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Devices",
+  "titleZh": "设备硬件",
+  "description": "电脑配件、家电与硬设备。",
+  "icon": "laptop",
+  "weight": 120
+}

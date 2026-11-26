@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "本地服务",
+  "categories": [
+    "dev"
+  ]
+}

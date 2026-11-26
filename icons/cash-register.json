@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "收银机",
+  "categories": [
+    "finance"
+  ]
+}

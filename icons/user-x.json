@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "移除用户",
+  "categories": [
+    "interface"
+  ]
+}

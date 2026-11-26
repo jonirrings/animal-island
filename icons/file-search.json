@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "查找文件",
+  "categories": [
+    "media"
+  ]
+}

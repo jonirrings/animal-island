@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Sports",
+  "titleZh": "运动",
+  "description": "球类、器械、运动动作与赛事。",
+  "icon": "soccer",
+  "weight": 160
+}

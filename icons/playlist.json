@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "播放列表",
+  "categories": [
+    "media"
+  ]
+}

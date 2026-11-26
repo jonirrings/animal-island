@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "计时器",
+  "categories": [
+    "interface"
+  ]
+}

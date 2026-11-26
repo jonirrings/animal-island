@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Communication",
+  "titleZh": "通信",
+  "description": "邮件、消息、通话与网络信号。",
+  "icon": "chat",
+  "weight": 50
+}

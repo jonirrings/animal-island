@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "面包机",
+  "categories": [
+    "devices"
+  ]
+}

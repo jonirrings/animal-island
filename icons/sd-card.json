@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "SD 卡",
+  "categories": [
+    "devices"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Nature & Weather",
+  "titleZh": "自然天气",
+  "description": "天气、植物、山石与季节。",
+  "icon": "sun",
+  "weight": 60
+}

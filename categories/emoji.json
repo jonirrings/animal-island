@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Emoji",
+  "titleZh": "表情",
+  "description": "表情与情绪。",
+  "icon": "smile",
+  "weight": 180
+}

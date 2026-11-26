@@ -1,0 +1,38 @@
+{
+  "$id": "https://animal-island.dev/category.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Animal Island category",
+  "description": "每个 categories/<id>.json 描述一个图标分类。文件名即分类 id，用 kebab-case。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "title", "titleZh", "description", "icon", "weight"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "英文分类名。"
+    },
+    "titleZh": {
+      "type": "string",
+      "minLength": 1,
+      "description": "中文分类名。"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "一句话说明这个分类覆盖哪些图标。"
+    },
+    "icon": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "用于分类列表展示的代表图标，必须属于本分类。"
+    },
+    "weight": {
+      "type": "integer",
+      "description": "排序权重，越小越靠前。"
+    }
+  }
+}

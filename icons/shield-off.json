@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "关闭防护",
+  "categories": [
+    "interface"
+  ]
+}

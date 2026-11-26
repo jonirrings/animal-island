@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "地图标记",
+  "categories": [
+    "navigation"
+  ]
+}

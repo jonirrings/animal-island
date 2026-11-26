@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "人民币",
+  "categories": [
+    "finance"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Places",
+  "titleZh": "建筑场所",
+  "description": "建筑、店铺、公共设施与场所。",
+  "icon": "building",
+  "weight": 130
+}

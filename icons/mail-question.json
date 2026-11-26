@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "询问邮件",
+  "categories": [
+    "communication"
+  ]
+}

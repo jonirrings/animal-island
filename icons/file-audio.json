@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "音频文件",
+  "categories": [
+    "media"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "温度计",
+  "categories": [
+    "objects"
+  ]
+}

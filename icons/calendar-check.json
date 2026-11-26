@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "日程完成",
+  "categories": [
+    "interface"
+  ]
+}

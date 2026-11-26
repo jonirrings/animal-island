@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Office",
+  "titleZh": "办公",
+  "description": "文具、办公设备与文档用品。",
+  "icon": "desk",
+  "weight": 110
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "出租车",
+  "categories": [
+    "transport"
+  ]
+}

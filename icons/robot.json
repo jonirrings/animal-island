@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "机器人",
+  "categories": [
+    "objects"
+  ]
+}

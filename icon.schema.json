@@ -1,0 +1,49 @@
+{
+  "$id": "https://animal-island.dev/icon.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Animal Island icon metadata",
+  "description": "每个 icons/<name>.json 描述一个图标。图标本体在 icons/<name>.svg，文件名用 kebab-case，且必须与 JSON 同名。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "zh", "categories"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "zh": {
+      "type": "string",
+      "minLength": 1,
+      "description": "中文显示名，用于文档站与搜索。"
+    },
+    "categories": {
+      "type": "array",
+      "description": "所属分类 id，必须在 categories/ 下存在同名文件。",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "tags": {
+      "type": "array",
+      "description": "额外的搜索关键字（同义词、英文别名等）。图标名本身不需要重复。",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "deprecated": {
+      "const": true
+    },
+    "deprecationReason": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "dependentRequired": {
+    "deprecated": ["deprecationReason"],
+    "deprecationReason": ["deprecated"]
+  }
+}

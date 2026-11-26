@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "任务完成",
+  "categories": [
+    "interface"
+  ]
+}

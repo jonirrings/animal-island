@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "Navigation",
+  "titleZh": "导航方位",
+  "description": "方向、箭头、地图与定位。",
+  "icon": "compass",
+  "weight": 40
+}

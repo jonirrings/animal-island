@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "3D 打印机",
+  "categories": [
+    "devices"
+  ]
+}

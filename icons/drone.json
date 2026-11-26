@@ -1,0 +1,7 @@
+{
+  "$schema": "../icon.schema.json",
+  "zh": "无人机",
+  "categories": [
+    "devices"
+  ]
+}

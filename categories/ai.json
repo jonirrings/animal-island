@@ -1,0 +1,8 @@
+{
+  "$schema": "../category.schema.json",
+  "title": "AI",
+  "titleZh": "AI 智能",
+  "description": "AI 智能体、提示词与模型相关。",
+  "icon": "ai-agent",
+  "weight": 190
+}
