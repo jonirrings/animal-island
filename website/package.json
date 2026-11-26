@@ -7,7 +7,9 @@
     "dev": "astro dev",
     "build": "node ./scripts/build-data.mjs && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "fonts": "python3 scripts/subset-fonts.py",
+    "fonts:check": "python3 scripts/subset-fonts.py --check"
   },
   "dependencies": {
     "@animal-island/react-icons": "workspace:*",

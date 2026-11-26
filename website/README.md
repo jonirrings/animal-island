@@ -27,6 +27,58 @@ pnpm --filter @animal-island/website build
 
 产物在 `website/dist/`。
 
+## 字体
+
+手写体用的是 LXGW Yozai（SIL OFL 1.1）。`public/fonts/` 里的是**子集化**后的
+字体，只包含本站实际用到的字符。
+
+这一点容易踩坑：站点最初直接拷了 naive-icons 的子集字体，而那份只覆盖了
+naive-icons 自己页面的 715 个字符。两站文案不同，结果 `--font-hand` 区块
+（首屏主标题、引导语、页脚品牌）缺字回退到系统黑体，同一行里字形会跳。
+
+字体栈决定了影响范围：
+
+```css
+--font-sans: …, "PingFang SC", "Microsoft YaHei", "Naive Sans", sans-serif;  /* 手写体排最后 */
+--font-hand: "Naive Sans", "PingFang SC", …;                                /* 手写体排第一 */
+```
+
+正文与图标中文名走 `--font-sans`，中文由系统字体先命中，所以不受影响。
+
+### 重新生成
+
+```sh
+pip install fonttools brotli          # 一次性依赖
+pnpm --filter @animal-island/website fonts
+```
+
+脚本会扫描 `src/**/*.{astro,js,jsx,svelte}` 与 `src/data/icons.json`（936 个
+图标中文名），汇总成 1192 个字符，然后裁出 4 个字体文件写回 `public/fonts/`，
+并把字符清单存到 `scripts/font-subset-chars.txt`（供 review 与 diff）。
+
+源字体默认从 [lxgw/yozai-font](https://github.com/lxgw/yozai-font) 的 v0.868
+release 下载到 `scripts/fonts-src/`（已 gitignore）；离线环境可用
+`--fonts-src <dir>` 指定已有目录。
+
+生成完会**回读字体的 cmap 自检覆盖**，任一字符缺字形就报错退出 —— 子集化
+最容易出的错是「以为覆盖了其实没有」。
+
+### 改文案后
+
+```sh
+pnpm --filter @animal-island/website fonts:check   # 清单是否过期，不需要 fonttools
+```
+
+返回非零就说明文案里出现了新字，跑一次 `fonts` 重新生成。CI 可以接这个命令。
+
+只想先把字符清单固定下来（比如暂时没有源字体）而不裁字体：
+
+```sh
+python3 website/scripts/subset-fonts.py --manifest-only
+```
+
+> `Dynamix-1.ttf`（品牌字）不参与子集化 —— 它只有 16 KB，且只用于品牌名。
+
 ## 部署到 Cloudflare Pages
 
 | 设置项 | 值 |

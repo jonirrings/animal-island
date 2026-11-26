@@ -16,6 +16,10 @@ __pycache__/
 # 本地试打包产物（pnpm pack:icons）
 .packs/
 
+# 本地临时/探查目录（诊断脚本、一次性验证产物）
+.tmp/
+.commit-*
+
 # debug
 logs
 *.log

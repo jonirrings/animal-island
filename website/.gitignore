@@ -5,3 +5,8 @@ node_modules/
 
 # 由 scripts/build-data.mjs 生成，构建时重建
 src/data/icons.json
+
+# 字体子集化的中间产物：源 TTF 由脚本按需下载，不入库
+# 子集后的 public/fonts/*.woff2 需要提交
+scripts/fonts-src/
+__pycache__/
