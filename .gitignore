@@ -7,6 +7,9 @@ gitignore
 packages/icons/*/src/icons/*.ts
 packages/icons/*/src/icons/*.svelte
 
+# python 脚本生成的字节码（tools/build-icons/scripts/*.py）
+__pycache__/
+
 # debug
 logs
 *.log

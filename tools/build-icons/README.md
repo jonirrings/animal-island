@@ -61,9 +61,151 @@ packages/icons/solid/src/icons/*.ts     + index.ts
 ## 新增图标
 
 1. 把 SVG 放进 `icons/<name>.svg`，文件名用 kebab-case。
-2. 跑 `pnpm build:icons`。
-3. 生成器会校验 `viewBox` 是否存在、PascalCase 是否撞名，并把 iconData
-   还原成 SVG 树与源文件逐节点比对；不一致会直接失败且不写文件。
+2. 新增 `icons/<name>.json` 元数据（见下节，`zh` + `categories` 必填）。
+3. 跑 `pnpm build:icons`。
+4. 生成器会校验：`viewBox` 是否存在、PascalCase 是否撞名、JSON 是否
+   符合 schema、分类引用是否存在、SVG 与 JSON 是否一一对应。全部通过
+   才会写文件；任何一项失败都不写。
+
+## 元数据与 JSON Schema
+
+参照 lucide 的做法，每个图标配一份同名 JSON，分类单独成文件：
+
+```
+icons/bear.svg          icons/bear.json              categories/animals.json
+categories/*.json
+icon.schema.json        category.schema.json
+```
+
+`icons/bear.json`：
+
+```json
+{
+  "$schema": "../icon.schema.json",
+  "zh": "小熊",
+  "categories": ["animals"]
+}
+```
+
+`categories/animals.json`：
+
+```json
+{
+  "$schema": "../category.schema.json",
+  "title": "Animals",
+  "titleZh": "动物",
+  "description": "动物、宠物、昆虫与海洋生物。",
+  "icon": "bear",
+  "weight": 70
+}
+```
+
+两个 schema 都是 JSON Schema draft 2020-12，放在仓库根目录：
+
+- `icon.schema.json`：`zh`（中文名）与 `categories`（分类 id 数组）必填，
+  `tags` / `deprecated` / `deprecationReason` 可选；`additionalProperties:
+  false`，多余字段直接报错；`deprecated` 必须与 `deprecationReason` 成对
+  出现（`dependentRequired`）。
+- `category.schema.json`：`title` / `titleZh` / `description` / `icon` /
+  `weight` 全部必填；`icon` 必须属于本分类，`weight` 用于文档站排序。
+
+校验器在 `src/validateSchema.mjs`，只实现这两个 schema 用到的 draft
+2020-12 子集（`type` / `required` / `additionalProperties` / `items` /
+`minLength` / `minItems` / `uniqueItems` / `pattern` / `const` / `enum` /
+`dependentRequired` / `minimum`），不引第三方依赖。schema 是唯一真相源，
+校验逻辑不重复描述字段。
+
+`src/meta.mjs` 负责 schema 表达不了的那部分交叉校验：
+
+- 每个 `.svg` 必须有同名 `.json`，反之亦然
+- `categories` 里引用的分类必须在 `categories/` 下存在
+- 分类的 `icon` 必须存在且归入该分类
+- 不允许有分类一个图标都没有
+
+## 从 naive-icons 同步元数据
+
+分类与中文名原本写在 naive-icons 的 `scripts/build_website.py`
+（`CATEGORIES` / `ICON_CATEGORY` / `ZH_NAMES`）。下面这个脚本直接 import
+那个文件取真实数据，转成上述 JSON：
+
+```sh
+python3 tools/build-icons/scripts/import-naive-meta.py --source ../naive-icons
+```
+
+脚本幂等，会覆盖同名 JSON 并删除不再对应 SVG 的旧 JSON。分类的英文名、
+描述、代表图标、排序权重写在脚本的 `CATEGORY_DETAILS` 里（naive-icons
+只提供了 id 和中文名），新增分类时要同步补一条。
+
+## 同步上游 SVG
+
+上游（naive-icons）改完图标后，用 `sync-icons.py` 把 SVG 拉过来。默认只
+报告不写文件：
+
+```sh
+# 看差异（dry-run）
+pnpm sync:icons
+
+# 实际同步（新增 + 更新，不删除）
+pnpm sync:icons:apply
+```
+
+输出按三类分组，变更项带简短摘要：
+
+```
+共 936 个 SVG：新增 2、变更 1、删除 0、一致 933
+
+新增（上游有、这里没有）（2）
+  graph-path
+  hole
+
+变更（1）
+  bear                         stroke="none" 0→3
+```
+
+### 三个开关
+
+| 参数 | 作用 |
+| --- | --- |
+| `--write` | 实际落盘（不加则只报告） |
+| `--prune` | 删除上游已不存在的 SVG。**默认不删**，因为这是唯一不可逆的操作 |
+| `--check` | 有差异即退出 1，供 CI 检测“有没有落后于上游” |
+
+删除项必须显式加 `--prune` 才会执行：
+
+```sh
+python3 tools/build-icons/scripts/sync-icons.py --source ../naive-icons --write --prune
+```
+
+不加 `--prune` 时，孤儿 SVG 会留在 `icons/`，导致元数据同步报“未分类”。
+脚本会提示这一点。
+
+### 上游规范守卫
+
+同步前会逐个检查上游 SVG，不通过则**中止写入、不动任何文件**：
+
+- 文件名必须是 kebab-case
+- `viewBox` 必须是 `0 0 48 48`
+- 根节点必须有 `fill` / `stroke` / `stroke-width` / `stroke-linecap` /
+  `stroke-linejoin`
+- 必须有子元素
+
+这些字段会被四个框架的运行时直接使用（见「有意的差异」），上游偏离会
+导致四处同时渲染异常，所以在入口拦住。
+
+### 与元数据的关系
+
+`--write` 后会自动调用 `import-naive-meta.py` 重建 `icons/*.json` 与
+`categories/*.json`。**即使 SVG 一字节未变也会重建** —— 上游可能只改了
+中文名或分类。跳过元数据用 `--no-meta`。
+
+完整流程：
+
+```sh
+pnpm sync:icons          # 1. 看差异
+pnpm sync:icons:apply    # 2. 同步 SVG + 元数据
+pnpm build:icons         # 3. 重新生成四框架组件
+pnpm check:icons         # 4. 校验（可选，build 时已做）
+```
 
 ## 和 lucide 的对应关系
 
@@ -75,6 +217,9 @@ packages/icons/solid/src/icons/*.ts     + index.ts
 | `packages/vue/src/Icon.ts` | `packages/icons/vue/src/createIcon.ts` |
 | `packages/svelte/src/Icon.svelte` | `packages/icons/svelte/src/Icon.svelte` |
 | `@lucide/shared` 的 icon node 类型 | 各包自己的 `types.ts` |
+| `icons/*.json` + `icon.schema.json` | `icons/*.json` + `icon.schema.json` |
+| `categories/*.json` + `category.schema.json` | `categories/*.json` + `category.schema.json` |
+| `groups/*.json` + `$group:` / `$extends:` | 未实现（当前不需要继承与标签分组） |
 
 ## 有意的差异
 
@@ -85,9 +230,12 @@ packages/icons/solid/src/icons/*.ts     + index.ts
   `link.svg`、`snowflake.svg`、`scooter.svg`、`unlink.svg` 会丢失描边。
 - **不做单色语义。** 不提供 `color` / `strokeWidth` / `absoluteStrokeWidth`
   / `nonScalingStroke` 这些 prop，颜色写在 SVG 子元素上。
-- **不需要元数据 json。** lucide 的 `getIconMetaData` 会无条件读取同名
-  `.json`（缺失就抛错），这里没有 aliases / categories / groups 概念。
-- **不需要 `--renderUniqueKey`。** 图标最大深度只有 2 层，子元素没有重复。
+- **元数据 JSON 是必需的。** lucide 的 `getIconMetaData` 会无条件读取同名
+  `.json`，缺失就抛 `TypeError`（且不受 `--withAliases` 控制）。这里同样
+  强制要求：每个 SVG 必须有同名 JSON，`categories/` 不能为空，引用必须
+  存在。好处是分类信息不会和图标集脱节；代价是新增图标必须同时写元数据。
+- **不需要 `--renderUniqueKey`。** 实测 936 个图标最大嵌套只有 2 层
+  （`g > path`），子元素无重复，不需要像 lucide 那样给子节点打 hash key。
 - **属性大小写。** React 输出 camelCase（`strokeWidth`）；Vue / Svelte /
   Solid 保持连字符，因为这三种运行时按 DOM 原样 `setAttribute`。
 
